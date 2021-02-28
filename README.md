@@ -1,3 +1,4 @@
+# This is an unfinished project that was never converted to python3!
 # Exploit for Joomla 3.7.0 (CVE-2017-8917)
 
 Another proof of concept exploit for Joomla, whoop-de-doo, this time a SQL Injection in 3.7.0.
